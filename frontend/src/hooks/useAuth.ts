@@ -46,6 +46,7 @@ const useAuth = () => {
       formData: data,
     })
     localStorage.setItem("access_token", response.access_token)
+    localStorage.setItem("last_login_email", data.username)
   }
 
   const loginMutation = useMutation({
@@ -60,6 +61,7 @@ const useAuth = () => {
 
   const logout = () => {
     localStorage.removeItem("access_token")
+    localStorage.removeItem("last_login_email")
     navigate({ to: "/login" })
   }
 
