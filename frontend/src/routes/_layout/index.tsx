@@ -9,15 +9,22 @@ export const Route = createFileRoute("/_layout/")({
 
 function Dashboard() {
   const { user: currentUser } = useAuth()
+  const fallbackEmail =
+    typeof window !== "undefined"
+      ? localStorage.getItem("last_login_email")
+      : null
+  const welcomeEmail = currentUser?.email ?? fallbackEmail ?? ""
 
   return (
     <Container maxW="full">
       <Box pt={12} m={4}>
         <Text fontSize="2xl" truncate maxW="sm">
-          Hi, {currentUser?.full_name || currentUser?.email} 👋🏼
+          {welcomeEmail ? `Bem-vindo, ${welcomeEmail}!` : "Bem-vindo!"}
         </Text>
-        <Text>Welcome back, nice to see you again!</Text>
+        <Text>O login foi efetuado com sucesso.</Text>
       </Box>
     </Container>
   )
 }
+
+export default Dashboard
